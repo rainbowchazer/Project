@@ -1,0 +1,82 @@
+server:
+  port: 8080
+  host: idel52nn.ru
+  protocol: https
+
+database:
+  driver: postgres
+  url: postgres://localhost:5432/idel
+  username: postgres
+  password: postgres
+  max_connections: 10
+
+logging:
+  level: INFO
+  ru_sitenn_idel: DEBUG
+
+security:
+  whitelist:
+    - "/api/admin/login"
+    - "/api/feedback"
+    - "/api/category"
+    - "/swagger-ui.html"
+    - "/swagger-ui/**"
+  admin_only:
+    - "/api/admin/**"
+  super_admin_only:
+    - "/api/super-admin/**"
+  jwt:
+    secret: "secretidel12312312312312312312312312313"
+    expiration: 86400  # Expiration time in seconds
+
+cors:
+  allowedOrigin: "http://localhost:80"
+  allowedHeader: "*"
+  allowedMethod: "*"
+  configurationPattern: "/**"
+
+email:
+  host: "smtp.gmail.com"
+  port: 587
+  username: "sitenn.test@gmail.com"
+  password: "pajo yqbv lbjk rqbi"
+  transport_protocol: "smtp"
+  smtp_auth: true
+  starttls_enable: true
+  debug: true
+
+feedback:
+  sender: "sitenn.test@gmail.com"
+  subject: "Заявка формы обратной связи"
+  email_template_location: "feedbackEmailTemplate.html"
+  languages: 
+    - "ru-RU"
+
+newsletter:
+  sender: "ap1kdungeonmaster2@gmail.com"
+  languages:
+    - "ru-RU"
+  email_template_location: "newsletterEmailTemplate.html"
+  unsubscribe_url_base: "google.com"
+  site_url_base: "google.com"
+
+google:
+  recaptcha:
+    url: "https://www.google.com/recaptcha/api/siteverify"
+    secret: "6LeepTQqAAAAAL_fq9jyUx6QG5sFow8eSdaLwuqh"
+    score_threshold: 0.5
+
+seo:
+  sitemap:
+    domain: "${server.protocol}://${server.host}"
+    static_urls:
+      - "/news"
+      - "/catalog"
+      - "/photogallery"
+      - "/policy"
+  product:
+    url_pattern: "${seo.sitemap.domain}/catalog/%s"
+  category:
+    url_pattern: "${seo.sitemap.domain}/catalog-details/%s"
+  news:
+    url_pattern: "${seo.sitemap.domain}/news/%s"
